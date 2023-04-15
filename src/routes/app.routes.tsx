@@ -1,5 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Login } from "../screens/Login";
+import { SignIn } from "../screens/SignIn";
+import { Home } from "../screens/Home";
 /**
  * Navigator: serve para criar o escopo de navegação
  * Screen: serve para definir pra onde cada rota vai levar (qual componente)
@@ -12,7 +13,8 @@ export function AppRoutes() {
     // as rotas. Nesse caro há uma configuração para remover o header automatico que tem
     <Navigator screenOptions={{ headerShown: false }}>
       {/* Define as rotas e os componentes o qual elas chamarão */}
-      <Screen name="login" component={Login} />
+      <Screen name="login" component={SignIn} />
+      <Screen name="home" component={Home} />
     </Navigator>
   );
 }

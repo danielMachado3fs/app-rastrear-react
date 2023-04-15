@@ -10,7 +10,7 @@ import { StyleSheet, View } from "react-native";
 
 export function Routes() {
   return (
-    <View>
+    <View style={styles.container}>
       <NavigationContainer>
         <AppRoutes />
       </NavigationContainer>
