@@ -6,10 +6,15 @@ export declare global {
     interface RootParamList {
       //aqui dentro é definido cada rota com seus parâmetros, não é recomendado passar objetos complexos
       home: undefined;
-      new: undefined;
-      habit: {
-        data: string;
-      };
+      login: undefined;
     }
   }
 }
+// import { StackNavigationProp } from "@react-navigation/stack";
+
+// type RootStackParamList = {
+//   home: undefined;
+//   login: undefined;
+// };
+
+// export type NavigationProps = StackNavigationProp<RootStackParamList>;
