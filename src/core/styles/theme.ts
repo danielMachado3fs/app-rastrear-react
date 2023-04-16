@@ -7,6 +7,7 @@ export default {
     text: "#000000",
     text_detail: "#A0A5A7",
     title: "#1E1E1E",
+    placeholder: "#A0A5A7",
     line: "#EBEBF0",
     shape: "#E1E1E8",
     shape_dark: "#000000",

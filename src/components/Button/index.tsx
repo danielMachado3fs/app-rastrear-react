@@ -11,7 +11,6 @@ interface Props extends RectButtonProps {
 }
 
 export function Button({ title, color, onPress, ...rest }: Props) {
-  rest.underlayColor;
   const theme = useTheme();
   return (
     <Container

@@ -1,24 +1,20 @@
 import "./src/lib/dayjs"; //aplica a configuração do dayjs (pt-br) na aplicação toda
 import "react-native-gesture-handler";
 import React, { useCallback, useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
 
 import {
-  useFonts,
   Comfortaa_400Regular,
   Comfortaa_500Medium,
   Comfortaa_700Bold,
 } from "@expo-google-fonts/comfortaa";
 
-import { SignIn } from "./src/screens/SignIn";
 import { ThemeProvider } from "styled-components";
 import theme from "./src/core/styles/theme";
-import { FontDisplay } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import { Routes } from "./src/routes";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -26,7 +22,7 @@ export default function App() {
   useEffect(() => {
     async function prepare() {
       try {
-        // await SplashScreen.preventAutoHideAsync();
+        await SplashScreen.preventAutoHideAsync();
         await Font.loadAsync({
           Comfortaa_400Regular,
           Comfortaa_500Medium,
@@ -52,20 +48,17 @@ export default function App() {
     return null;
   }
   return (
-    <>
-      <ThemeProvider theme={theme}>
-        <View style={styles.container} onLayout={onLayoutRootView}>
-          <StatusBar style="auto" />
-          <Routes />
-        </View>
-      </ThemeProvider>
-    </>
+    <ThemeProvider theme={theme}>
+      <View style={styles.container} onLayout={onLayoutRootView}>
+        <StatusBar style="auto" />
+        <Routes />
+      </View>
+    </ThemeProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: "#E6EEF1",
   },
 });
