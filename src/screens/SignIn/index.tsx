@@ -1,16 +1,17 @@
 import React from "react";
 import * as Yup from "yup";
 import { RFValue } from "react-native-responsive-fontsize";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Controller } from "react-hook-form";
 
 import { Container, Fields, Form, Header } from "./styles";
 
 import LogoSvg from "../../assets/logoDetails.svg";
-import { InputForm } from "../../components/Form/InputForm";
 import { useWindowDimensions } from "react-native";
 import { Button } from "../../components/Button";
 import { REQUIRED_FORM } from "../../utils/constants";
+import { Input } from "../../components/Form/InputWithIcon";
 
 const schema = Yup.object().shape({
   email: Yup.string().email("Informe um email válido").required(REQUIRED_FORM),
@@ -29,11 +30,11 @@ export function SignIn() {
     formState: { errors },
     clearErrors,
     handleSubmit,
-  } = useForm({
+  } = useForm<FormData>({
     resolver: yupResolver(schema),
   });
 
-  async function onSubmit(form: any) {
+  async function onSubmit(form: FormData) {
     console.log(form);
   }
 
@@ -44,24 +45,32 @@ export function SignIn() {
     >
       <LogoSvg height={RFValue(height * 0.4)} />
       <Form>
-        <InputForm
+        <Controller
           control={control}
+          render={({ field: { onChange, value } }) => (
+            <Input
+              value={value}
+              onChangeText={onChange}
+              placeholder="Email"
+              icon="envelope"
+              error={errors.email! && errors?.email?.message?.toString()!}
+            />
+          )}
           name="email"
-          error={errors.email! && errors?.email?.message?.toString()!}
-          placeholder="Email"
-          icon="envelope"
-          onChange={() => clearErrors("email")}
         />
-        <InputForm
+        <Controller
           control={control}
           name="password"
-          error={errors.password! && errors?.password?.message?.toString()!}
-          placeholder="Senha"
-          icon="lock"
-          secureTextEntry={true}
-          onChange={() => clearErrors("password")}
+          render={({ field: { onChange, value } }) => (
+            <Input
+              value={value}
+              onChangeText={onChange}
+              placeholder="Senha"
+              icon="envelope"
+              error={errors.password! && errors?.password?.message?.toString()!}
+            />
+          )}
         />
-
         <Button
           onPress={handleSubmit(onSubmit)}
           title="Entrar"

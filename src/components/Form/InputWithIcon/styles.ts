@@ -22,3 +22,8 @@ export const Icon = styled(FontAwesome5)`
   align-self: center;
   padding-right: 20px;
 `;
+
+export const Error = styled.Text`
+  font-size: 15px;
+  color: red;
+`;
