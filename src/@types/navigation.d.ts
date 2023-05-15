@@ -7,6 +7,8 @@ export declare global {
       //aqui dentro é definido cada rota com seus parâmetros, não é recomendado passar objetos complexos
       home: undefined;
       login: undefined;
+      startCheckList: undefined;
+      checkList: undefined;
     }
   }
 }
