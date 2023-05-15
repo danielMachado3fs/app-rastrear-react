@@ -6,6 +6,7 @@ import { TouchableOpacityProps } from "react-native";
 interface ButtonProps extends TouchableOpacityProps {
   color: string;
 }
+
 export const Container = styled.TouchableOpacity<ButtonProps>`
   width: 100%;
   align-items: center;

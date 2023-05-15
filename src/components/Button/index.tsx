@@ -3,15 +3,26 @@ import React from "react";
 import { Container, Title } from "./styles";
 import { RectButtonProps } from "react-native-gesture-handler";
 import { useTheme } from "styled-components";
+import { TouchableOpacityProps } from "react-native";
+import { ActivityIndicator } from "react-native";
+import { RFValue } from "react-native-responsive-fontsize";
 
-interface Props extends RectButtonProps {
+interface Props extends TouchableOpacityProps {
   title: string;
   color: string;
   onPress: () => void;
+  disabled: boolean;
+  isSubmitting?: boolean;
 }
 
-export function Button({ title, color, onPress, ...rest }: Props) {
-  rest.underlayColor;
+export function Button({
+  title,
+  color,
+  onPress,
+  disabled,
+  isSubmitting,
+  ...rest
+}: Props) {
   const theme = useTheme();
   return (
     <Container
@@ -19,8 +30,16 @@ export function Button({ title, color, onPress, ...rest }: Props) {
       onPress={onPress}
       theme={theme}
       color={color}
+      disabled={disabled || isSubmitting}
     >
-      <Title>{title}</Title>
+      {isSubmitting ? (
+        <ActivityIndicator
+          size={RFValue(26)}
+          color={theme.colors.shape_light}
+        />
+      ) : (
+        <Title>{title}</Title>
+      )}
     </Container>
   );
 }

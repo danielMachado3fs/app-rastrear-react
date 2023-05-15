@@ -2,6 +2,7 @@ export default {
   colors: {
     primary: "#005776",
     secondary: "#E6EEF1",
+    placeholderText: "rgba(0, 87, 118,0.5)",
     background_primary: "#FFFFFF",
     background_secondary: "#F7F7F7",
     text: "#000000",
@@ -14,8 +15,9 @@ export default {
   },
 
   fonts: {
-    primary_400: "Comfortaa_400Regular",
-    primary_500: "Comfortaa_500Medium",
-    primary_700: "Comfortaa_700Bold",
+    primary_300: "Poppins_300Light",
+    primary_400: "Poppins_400Regular",
+    primary_500: "Poppins_500Medium",
+    primary_700: "Poppins_700Bold",
   },
 };
