@@ -7,12 +7,13 @@ import * as Font from "expo-font";
 
 import {
   useFonts,
-  Comfortaa_400Regular,
-  Comfortaa_500Medium,
-  Comfortaa_700Bold,
-} from "@expo-google-fonts/comfortaa";
+  Poppins_300Light,
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_700Bold,
+} from "@expo-google-fonts/poppins";
 
-import { SignIn } from "./src/screens/SignIn";
+// import { SignIn } from "./src/screens/SignIn";
 import { ThemeProvider } from "styled-components";
 import theme from "./src/core/styles/theme";
 import { FontDisplay } from "expo-font";
@@ -28,9 +29,10 @@ export default function App() {
       try {
         // await SplashScreen.preventAutoHideAsync();
         await Font.loadAsync({
-          Comfortaa_400Regular,
-          Comfortaa_500Medium,
-          Comfortaa_700Bold,
+          Poppins_300Light,
+          Poppins_400Regular,
+          Poppins_500Medium,
+          Poppins_700Bold,
         });
       } catch (e) {
         console.warn(e);
@@ -55,7 +57,10 @@ export default function App() {
     <>
       <ThemeProvider theme={theme}>
         <View style={styles.container} onLayout={onLayoutRootView}>
-          <StatusBar style="auto" />
+          <StatusBar
+            style="auto"
+            backgroundColor={theme.colors.background_secondary}
+          />
           <Routes />
         </View>
       </ThemeProvider>
