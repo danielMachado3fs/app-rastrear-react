@@ -1,33 +1,31 @@
 import React from "react";
-import { Text, useWindowDimensions } from "react-native";
 
 import { format } from "date-fns";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { RFValue } from "react-native-responsive-fontsize";
 
-import { MaskedForm } from "../../components/Form/MaskedForm";
 import { Button } from "../../components/Button";
+import { MaskedForm } from "../../components/Form/MaskedForm";
 
-import {
-  Container,
-  Form,
-  Title,
-  SubTitle,
-  Label,
-  BoxSized,
-  Footer,
-} from "./styles";
-import { useTheme } from "styled-components";
 import { useNavigation } from "@react-navigation/native";
+import { useTheme } from "styled-components";
 import { Header } from "../../components/Header";
+import {
+  BoxSized,
+  Container,
+  Footer,
+  Form,
+  Label,
+  SubTitle,
+  Title,
+} from "./styles";
 
 const formValidationSchema = yup.object().shape({
   licensePlate: yup
     .string()
-    .min(8, "Mínimo 7 caracteres")
+    .min(7, "Mínimo 7 caracteres")
     .required("A placa é obrigatorio"),
-  km: yup.string().max(7, "").required("KM é obrigatorio"),
+  km: yup.string().max(10, "").required("KM é obrigatorio"),
   date: yup.date().required(),
 });
 
@@ -38,7 +36,7 @@ interface MyFormValues {
 }
 
 export function StartCheckList() {
-  const { height } = useWindowDimensions();
+  // const { height } = useWindowDimensions();
   const theme = useTheme();
   const navigation = useNavigation();
 
@@ -101,17 +99,17 @@ export function StartCheckList() {
                 error={touched.licensePlate ? errors.licensePlate : ""}
                 type={"custom"}
                 options={{
-                  mask: "AAA-9999",
+                  mask: "SSSSSSS",
                 }}
                 onBlur={() => setFieldTouched("licensePlate", true)}
                 onFocus={() => setFieldTouched("licensePlate", false)}
-                maxLength={8}
+                maxLength={7}
                 autoCapitalize="characters"
-                placeholder="ABC-1234"
+                placeholder="ABC1234"
                 onChangeText={handleChange("licensePlate")}
-                keyboardType={
-                  values.licensePlate.length >= 3 ? "numeric" : "default"
-                }
+                // keyboardType={
+                //   values.licensePlate.length >= 3 ? "numeric" : "default"
+                // }
                 value={values.licensePlate.toUpperCase()}
                 autoCorrect={false}
               />
@@ -123,12 +121,12 @@ export function StartCheckList() {
                 error={touched.licensePlate ? errors.km : ""}
                 type={"custom"}
                 options={{
-                  mask: "9999 KM",
+                  mask: "999999 KM",
                 }}
                 onBlur={() => setFieldTouched("km", true)}
                 onFocus={() => setFieldTouched("km", false)}
-                maxLength={8}
-                placeholder="0000 KM"
+                maxLength={10}
+                placeholder="000000 KM"
                 onChangeText={handleChange("km")}
                 keyboardType={"numeric"}
                 value={values.km}

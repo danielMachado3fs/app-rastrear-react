@@ -1,13 +1,12 @@
 import React from "react";
 
-import { Container, Footer, Box, Form } from "./styles";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { CustomCheckbox } from "../../components/Form/CustomCheckbox";
-import { Header } from "../../components/Header";
 import { Button } from "../../components/Button";
-import theme from "../../core/styles/theme";
 import { CheckboxWithOptions } from "../../components/CheckboxWithOptions";
+import { Header } from "../../components/Header";
+import theme from "../../core/styles/theme";
+import { Box, Container, Footer, Form } from "./styles";
 
 const checklistValidationSchema = yup.object().shape({
   tires: yup
