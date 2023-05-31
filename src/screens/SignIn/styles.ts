@@ -1,8 +1,9 @@
 import { RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   flex: 1;
+
 `;
 
 export const Header = styled.View`
@@ -24,3 +25,11 @@ export const Form = styled.View`
 export const Fields = styled.View`
   margin-bottom: 16px;
 `;
+
+export const Label = styled.Text`
+    font-size: ${RFValue(16)}px;
+    font-family: ${({ theme }) => theme.fonts.primary_500};
+  margin-bottom: -15px;
+  `;
+
+

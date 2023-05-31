@@ -1,66 +1,97 @@
-// import React from "react";
-// import * as Yup from "yup";
-// import { RFValue } from "react-native-responsive-fontsize";
-// import { useForm } from "react-hook-form";
-// import { yupResolver } from "@hookform/resolvers/yup";
+import React from "react";
+import * as yup from "yup";
+import { RFValue } from "react-native-responsive-fontsize";
+import { Container, Form, Label } from "./styles";
+import { InputForm } from "../../components/Form/InputForm";
+import { useWindowDimensions } from "react-native";
+import { Button } from "../../components/Button";
+import { Formik } from "formik";
+import { useTheme } from "styled-components";
+import { useNavigation } from "@react-navigation/native";
 
-// import { Container, Fields, Form, Header } from "./styles";
+import LogoSvg from "../../assets/logoDetails.svg";
 
-// import LogoSvg from "../../assets/logoDetails.svg";
-// import { InputForm } from "../../components/Form/InputForm";
-// import { useWindowDimensions } from "react-native";
-// import { Button } from "../../components/Button";
+const formValidationSchema = yup.object().shape({
+  email: yup.string().email().required("Campo Obrigatório"),
+  password: yup.string().min(5).max(12).required("Campo Obrigatório"),
+});
 
-// const schema = Yup.object().shape({
-//   email: Yup.string().required("Nome é obrigatório"),
-//   password: Yup.number()
-//     .typeError("Informe um valor númerico")
-//     .positive("O valor não pode ser negativo")
-//     .required("O valor é obrigatório"),
-// });
+export function SignIn() {
+  const theme = useTheme();
+  const navigation = useNavigation();
 
-// export function SignIn() {
-//   const { height } = useWindowDimensions();
-//   const {
-//     control,
-//     reset,
-//     handleSubmit,
-//     formState: { errors },
-//     clearErrors,
-//     getFieldState,
-//   } = useForm({
-//     resolver: yupResolver(schema),
-//   });
+  const { height } = useWindowDimensions();
 
-//   async function handlerLogin(form: any) {
-//     console.log(form);
-//   }
+  const initialValues = {
+    email: "",
+    password: "",
+  };
 
-//   return (
-//     <Container>
-//       <LogoSvg height={RFValue(height * 0.4)} />
-//       <Form>
-//         <InputForm
-//           control={control}
-//           name="email"
-//           error={errors.email! && errors?.email?.message?.toString()!}
-//           placeholder="Email"
-//           onChange={() => clearErrors("email")}
-//         />
-//         <InputForm
-//           // control={control}
-//           name="password"
-//           error={errors.password! && errors?.password?.message?.toString()!}
-//           placeholder="Senha"
-//           onChange={() => clearErrors("password")}
-//         />
+  return (
+    <Container>
+      <LogoSvg height={RFValue(height * 0.35)} />
+      <Form>
+        <Formik
+          onSubmit={(values, actions) => {
+            setTimeout(() => {
+              console.log({ values });
 
-//         <Button
-//           onPress={() => handlerLogin(getFieldState("email"))}
-//           title="Entrar"
-//           color="#005776"
-//         />
-//       </Form>
-//     </Container>
-//   );
-// }
+              console.log(JSON.stringify(values, null, 2));
+
+              actions.setSubmitting(false);
+              navigation.navigate("startCheckList");
+            }, 1000);
+          }}
+          initialValues={initialValues}
+          validationSchema={formValidationSchema}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            setFieldTouched,
+            handleSubmit,
+            values,
+            errors,
+            isValid,
+            touched,
+            isSubmitting,
+          }) => (
+            <>
+              {/* Email Input */}
+              <Label>E-mail</Label>
+              <InputForm
+                onBlur={() => setFieldTouched("email", true)}
+                onFocus={() => setFieldTouched("email", false)}
+                error={touched.email ? errors.email : ""}
+                placeholder="fulando@gmail.com"
+                onChangeText={handleChange("email")}
+              />
+
+              {/* Password Input */}
+              <Label>Senha</Label>
+              <InputForm
+                onBlur={() => setFieldTouched("password", true)}
+                onFocus={() => setFieldTouched("password", false)}
+                maxLength={12}
+                secureTextEntry
+                error={touched.password ? errors.password : ""}
+                onChangeText={handleChange("password")}
+              />
+
+              {/* Button */}
+              <Button
+                title="ENTRAR"
+                color={
+                  isValid ? theme.colors.primary : theme.colors.placeholderText
+                }
+                onPress={handleSubmit}
+                isSubmitting={isSubmitting}
+                disabled={!isValid}
+              />
+            </>
+          )}
+        </Formik>
+      </Form>
+    </Container>
+  );
+}
