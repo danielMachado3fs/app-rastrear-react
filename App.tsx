@@ -20,8 +20,14 @@ import { FontDisplay } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import { Routes } from "./src/routes";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { LogBox } from "react-native";
 
 export default function App() {
+  LogBox.ignoreLogs([
+    "ViewPropTypes will be removed",
+    "ColorPropType will be removed",
+  ]);
+
   const [appIsReady, setAppIsReady] = useState(false);
 
   useEffect(() => {

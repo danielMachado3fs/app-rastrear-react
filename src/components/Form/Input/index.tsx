@@ -8,5 +8,7 @@ type Props = TextInputProps;
 
 export function Input({ ...rest }: Props) {
   const theme = useTheme();
-  return <Container {...rest} placeholderTextColor={theme.colors.primary} />;
+  return (
+    <Container {...rest} placeholderTextColor={theme.colors.placeholderText} />
+  );
 }

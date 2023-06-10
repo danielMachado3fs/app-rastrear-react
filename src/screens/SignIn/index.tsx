@@ -1,3 +1,11 @@
+/**
+ * SignIn Screen
+ *
+ * Este componente é responsável por exibir o formulário de login, validando os campos
+ * de e-mail e senha. Ele utiliza o pacote Formik e o esquema de validação Yup para
+ * realizar a validação dos campos.
+ */
+
 import React from "react";
 import * as yup from "yup";
 import { RFValue } from "react-native-responsive-fontsize";
@@ -11,9 +19,10 @@ import { useNavigation } from "@react-navigation/native";
 
 import LogoSvg from "../../assets/logoDetails.svg";
 
+// Define o esquema de validação para os campos de e-mail e senha usando yup
 const formValidationSchema = yup.object().shape({
-  email: yup.string().email().required("Campo Obrigatório"),
-  password: yup.string().min(5).max(12).required("Campo Obrigatório"),
+  email: yup.string().email().required("Email Obrigatório"),
+  password: yup.string().min(5).max(12).required("Senha Obrigatória"),
 });
 
 export function SignIn() {
@@ -22,6 +31,7 @@ export function SignIn() {
 
   const { height } = useWindowDimensions();
 
+  // Define os valores iniciais dos campos de e-mail e senha
   const initialValues = {
     email: "",
     password: "",

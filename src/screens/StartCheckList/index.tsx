@@ -1,3 +1,10 @@
+/**
+ * StartCheckList Screen
+ *
+ * Este componente renderiza um formulário para iniciar um checklist.
+ * Ele utiliza o Formik para gerenciamento e validação do formulário com o schema yup.
+ */
+
 import React from "react";
 
 import { format } from "date-fns";
@@ -20,15 +27,17 @@ import {
   Title,
 } from "./styles";
 
+// Define o schema de validação do formulário utilizando o yup
 const formValidationSchema = yup.object().shape({
   licensePlate: yup
     .string()
     .min(7, "Mínimo 7 caracteres")
     .required("A placa é obrigatorio"),
-  km: yup.string().max(10, "").required("KM é obrigatorio"),
+  km: yup.string().max(10, "").required("Quilometragem é obrigatorio"),
   date: yup.date().required(),
 });
 
+// Define a interface para os valores do formulário
 interface MyFormValues {
   licensePlate: string;
   km: string;
@@ -40,6 +49,7 @@ export function StartCheckList() {
   const theme = useTheme();
   const navigation = useNavigation();
 
+  // Define os valores iniciais do formulário
   const initialValues: MyFormValues = {
     licensePlate: "",
     km: "",
@@ -54,7 +64,7 @@ export function StartCheckList() {
       {/* Form */}
       <Form>
         <Title>Checklist</Title>
-        <SubTitle>Preencha os dados abaixo para iniciar o cheacklist</SubTitle>
+        <SubTitle>Preencha os dados abaixo para iniciar o checklist</SubTitle>
 
         <Formik
           onSubmit={(values, actions) => {

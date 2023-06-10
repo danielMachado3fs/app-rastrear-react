@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 
 export const Container = styled.ScrollView`
   flex: 1;
-
+  background-color: ${({ theme }) => theme.colors.background_secondary};
 `;
 
 export const Header = styled.View`
@@ -27,9 +27,7 @@ export const Fields = styled.View`
 `;
 
 export const Label = styled.Text`
-    font-size: ${RFValue(16)}px;
-    font-family: ${({ theme }) => theme.fonts.primary_500};
+  font-size: ${RFValue(16)}px;
+  font-family: ${({ theme }) => theme.fonts.primary_500};
   margin-bottom: -15px;
-  `;
-
-
+`;
