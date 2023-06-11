@@ -16,9 +16,17 @@ export default {
   },
 
   fonts: {
-    primary_300: "Poppins_300Light",
-    primary_400: "Poppins_400Regular",
-    primary_500: "Poppins_500Medium",
-    primary_700: "Poppins_700Bold",
+    primary_300: "Comfortaa_300Light",
+    primary_400: "Comfortaa_400Regular",
+    primary_500: "Comfortaa_500Medium",
+    primary_600: "Comfortaa_600SemiBold",
+    primary_700: "Comfortaa_700Bold",
+
+    secondary_300: "OpenSans_300Light",
+    secondary_400: "OpenSans_400Regular",
+    secondary_500: "OpenSans_500Medium",
+    secondary_600: "OpenSans_600SemiBold",
+    secondary_700: "OpenSans_700Bold",
+    secondary_800: "OpenSans_800ExtraBold",
   },
 };

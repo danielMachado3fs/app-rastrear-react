@@ -8,7 +8,7 @@ export const Container = styled.View`
   padding: ${StatusBar.currentHeight! - 10}px 0px 0px;
   justify-content: space-between;
   align-items: center;
-  margin: 0px 0px 20px;
+  /* margin: 0px 0px 10px; */
   /* background-color: #00ff; */
 `;
 

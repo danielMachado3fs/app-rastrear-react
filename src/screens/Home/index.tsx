@@ -6,16 +6,24 @@ import {
   Widget,
   MiniWidget,
   WidgetContainer,
+  MyVehiclesTitle,
   CarInfo,
   LicensePlateContainer,
   LicensePlate,
   CarName,
   CarTypeContainer,
   CarType,
+  TicketTitle,
 } from "./styles";
 import { useTheme } from "styled-components";
 import { Header } from "../../components/Header";
-import { CarList } from "../../components/CarList";
+
+import ItemSlide from "../../components/CarSlider";
+import { Button } from "../../components/Button";
+
+import ChecklistIcon from "../../../assets/checklist_icon.svg";
+import TicketIcon from "../../../assets/ticket_icon.svg";
+import { TicketWidget } from "../../components/TicketWidget";
 
 export function Home() {
   const theme = useTheme();
@@ -23,64 +31,34 @@ export function Home() {
   return (
     <Container>
       <Header />
-
-      <CarList />
+      <>
+        <MyVehiclesTitle>Meus veiculos</MyVehiclesTitle>
+        <ItemSlide />
+      </>
 
       <WidgetContainer>
-        <MiniWidget>
-          <Image
-            source={{
-              uri: "https://cdn-icons-png.flaticon.com/512/913/913383.png",
-            }}
-            style={{ width: 40, height: 40 }}
+        <View style={{ width: "48%" }}>
+          <Button
+            IconSVG={<ChecklistIcon />}
+            title="Realizar Checklist"
+            color={theme.colors.button_color}
+            onPress={() => {}}
+            disabled={false}
           />
-          <View
-            style={{
-              height: "100%",
-              borderWidth: 0.5,
-              borderColor: "white",
-              margin: 10,
-              borderRadius: 20,
-            }}
+        </View>
+        <View style={{ width: "48%" }}>
+          <Button
+            IconSVG={<TicketIcon />}
+            title="Solicitar Ticket"
+            color={theme.colors.button_color}
+            onPress={() => {}}
+            disabled={false}
           />
-          <View>
-            <Text style={{ color: "white" }}>Realizar</Text>
-            <Text style={{ color: "white" }}>Checklist</Text>
-          </View>
-        </MiniWidget>
-        <MiniWidget>
-          <Image
-            source={{
-              uri: "https://cdn-icons-png.flaticon.com/512/913/913383.png",
-            }}
-            style={{ width: 40, height: 40 }}
-          />
-          <View
-            style={{
-              height: "100%",
-              borderWidth: 0.5,
-              borderColor: "white",
-              margin: 10,
-              borderRadius: 20,
-            }}
-          />
-          <View>
-            <Text style={{ color: "white" }}>Realizar </Text>
-            <Text style={{ color: "white" }}>Checklist</Text>
-          </View>
-        </MiniWidget>
+        </View>
       </WidgetContainer>
       <Widget>
-        <View
-          style={{
-            width: "100%",
-            borderWidth: 0.5,
-            borderColor: "black",
-            margin: 10,
-          }}
-        />
-
-        <Text>quadro 4</Text>
+        <TicketTitle>Tickets Recentes</TicketTitle>
+        <TicketWidget />
       </Widget>
     </Container>
   );

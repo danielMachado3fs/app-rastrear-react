@@ -4,25 +4,43 @@ import styled from "styled-components/native";
 export const Container = styled.ScrollView`
   flex: 1;
   /* justify-content: center; */
-  padding: 16px;
+
   background-color: ${({ theme }) => theme.colors.background_secondary};
 `;
 
 export const WidgetContainer = styled.View`
   width: 100%;
+  gap: ${RFValue(2)}px;
+  padding: 20px 16px;
+  /* height: 280px; */
   flex-direction: row;
   justify-content: space-between;
 `;
 
 export const Widget = styled.View`
-  margin-top: -20px;
-  height: 280px;
-  background-color: #fff;
-  padding: 15px;
+  /* margin-top: -20px; */
+  /* height: 280px; */
+  /* background-color: #fff; */
+  padding: 0px 15px 15px;
   justify-content: center;
   align-items: center;
   border-radius: 20px;
   margin-bottom: 20px;
+`;
+
+export const TicketTitle = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.primary_700};
+  font-size: ${RFValue(15)}px;
+  align-self: flex-start;
+  margin-bottom: 8px;
+`;
+
+export const MyVehiclesTitle = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.primary_700};
+  font-size: ${RFValue(15)}px;
+  align-self: flex-start;
+  margin-bottom: 8px;
+  padding-left: 10px;
 `;
 
 export const MiniWidget = styled.View`
