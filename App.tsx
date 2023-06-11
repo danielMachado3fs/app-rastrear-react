@@ -7,11 +7,21 @@ import * as Font from "expo-font";
 
 import {
   useFonts,
-  Poppins_300Light,
-  Poppins_400Regular,
-  Poppins_500Medium,
-  Poppins_700Bold,
-} from "@expo-google-fonts/poppins";
+  Comfortaa_300Light,
+  Comfortaa_400Regular,
+  Comfortaa_500Medium,
+  Comfortaa_600SemiBold,
+  Comfortaa_700Bold,
+} from "@expo-google-fonts/comfortaa";
+
+import {
+  OpenSans_300Light,
+  OpenSans_400Regular,
+  OpenSans_500Medium,
+  OpenSans_600SemiBold,
+  OpenSans_700Bold,
+  OpenSans_800ExtraBold,
+} from "@expo-google-fonts/open-sans";
 
 // import { SignIn } from "./src/screens/SignIn";
 import { ThemeProvider } from "styled-components";
@@ -20,14 +30,8 @@ import { FontDisplay } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import { Routes } from "./src/routes";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { LogBox } from "react-native";
 
 export default function App() {
-  LogBox.ignoreLogs([
-    "ViewPropTypes will be removed",
-    "ColorPropType will be removed",
-  ]);
-
   const [appIsReady, setAppIsReady] = useState(false);
 
   useEffect(() => {
@@ -35,10 +39,17 @@ export default function App() {
       try {
         // await SplashScreen.preventAutoHideAsync();
         await Font.loadAsync({
-          Poppins_300Light,
-          Poppins_400Regular,
-          Poppins_500Medium,
-          Poppins_700Bold,
+          OpenSans_300Light,
+          OpenSans_400Regular,
+          OpenSans_500Medium,
+          OpenSans_600SemiBold,
+          OpenSans_700Bold,
+          OpenSans_800ExtraBold,
+          Comfortaa_300Light,
+          Comfortaa_400Regular,
+          Comfortaa_500Medium,
+          Comfortaa_600SemiBold,
+          Comfortaa_700Bold,
         });
       } catch (e) {
         console.warn(e);

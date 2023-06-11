@@ -1,6 +1,6 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
-import { Container, Title } from "./styles";
+import { Container, Title, ButtonInside } from "./styles";
 import { RectButtonProps } from "react-native-gesture-handler";
 import { useTheme } from "styled-components";
 import { TouchableOpacityProps } from "react-native";
@@ -13,6 +13,8 @@ interface Props extends TouchableOpacityProps {
   onPress: () => void;
   disabled: boolean;
   isSubmitting?: boolean;
+  height?: number;
+  IconSVG?: ReactNode;
 }
 
 export function Button({
@@ -21,11 +23,14 @@ export function Button({
   onPress,
   disabled,
   isSubmitting,
+  height,
+  IconSVG,
   ...rest
 }: Props) {
   const theme = useTheme();
   return (
     <Container
+      height={height}
       activeOpacity={0.7}
       onPress={onPress}
       theme={theme}
@@ -38,7 +43,10 @@ export function Button({
           color={theme.colors.shape_light}
         />
       ) : (
-        <Title>{title}</Title>
+        <ButtonInside>
+          {IconSVG}
+          <Title>{title}</Title>
+        </ButtonInside>
       )}
     </Container>
   );

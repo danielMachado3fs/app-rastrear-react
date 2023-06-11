@@ -17,7 +17,7 @@ import { Formik } from "formik";
 import { useTheme } from "styled-components";
 import { useNavigation } from "@react-navigation/native";
 
-import LogoSvg from "../../assets/logoDetails.svg";
+import LogoSvg from "../../../assets/logoDetails.svg";
 
 // Define o esquema de validação para os campos de e-mail e senha usando yup
 const formValidationSchema = yup.object().shape({

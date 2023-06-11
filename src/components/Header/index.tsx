@@ -3,7 +3,7 @@ import { Text, useWindowDimensions } from "react-native";
 import { Container, Profile, Username } from "./styles";
 import { Ionicons } from "@expo/vector-icons";
 
-import LogoSvg from "../../assets/logoCompleto.svg";
+import LogoSvg from "../../../assets/logoCompleto.svg";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useTheme } from "styled-components";
 
