@@ -49,7 +49,7 @@ export const Heading = styled(Animated.Text)`
   margin-bottom: 5px;
 `;
 
-export const Description = styled(Animated.Text)`
+export const DescriptionPlate = styled(Animated.Text)`
   color: #ccc;
   font-size: ${RFValue(14)}px;
   font-family: ${({ theme }) => theme.fonts.primary_600};
@@ -80,33 +80,33 @@ export const PaginationDotContainer = styled.View`
   justify-content: center;
 `;
 
-export const TickerContainer = styled.View`
-  position: absolute;
-  top: 30px;
-  left: 20px;
-  overflow: hidden;
-  height: ${TICKER_HEIGHT}px;
-`;
+// export const TickerContainer = styled.View`
+//   position: absolute;
+//   top: 30px;
+//   left: 20px;
+//   overflow: hidden;
+//   height: ${TICKER_HEIGHT}px;
+// `;
 
-export const TickerText = styled.Text`
-  color: #ccc;
-  font-size: ${TICKER_HEIGHT}px;
-  font-family: ${({ theme }) => theme.fonts.primary_600};
-  /* fontWeight: "800", */
-  /* textTransform: "uppercase", */
-  line-height: ${TICKER_HEIGHT}px;
-`;
+// export const TickerText = styled.Text`
+//   color: #ccc;
+//   font-size: ${TICKER_HEIGHT}px;
+//   font-family: ${({ theme }) => theme.fonts.primary_600};
+//   /* fontWeight: "800", */
+//   /* textTransform: "uppercase", */
+//   line-height: ${TICKER_HEIGHT}px;
+// `;
 
-export const StatusCar = styled(Animated.View)`
-  background-color: "green";
-  height: 20px;
-  width: 20px;
-  border-radius: 10px;
-`;
+// export const StatusCar = styled(Animated.View)`
+//   background-color: "green";
+//   height: 20px;
+//   width: 20px;
+//   border-radius: 10px;
+// `;
 
-export const StatusInfoContainer = styled(Animated.View)`
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-  margint-bottom: ${TICKER_HEIGHT}px;
-`;
+// export const StatusInfoContainer = styled(Animated.View)`
+//   flex-direction: row;
+//   align-items: center;
+//   gap: 10px;
+//   margint-bottom: ${TICKER_HEIGHT}px;
+// `;
