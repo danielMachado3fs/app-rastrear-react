@@ -1,36 +1,29 @@
 import React from "react";
 
 import {
+  CIRCLE_SIZE,
   Container,
-  StatusInfoContainer,
-  ItemStyle,
-  ImageStyle,
-  TextContainer,
+  DOT_SIZE,
   Description,
   Heading,
+  ImageStyle,
+  ItemStyle,
   PaginationContainer,
   PaginationDot,
   PaginationDotContainer,
-  TickerContainer,
-  TickerText,
-  TICKER_HEIGHT,
-  DOT_SIZE,
-  CIRCLE_SIZE,
+  TextContainer
 } from "./styles";
-import { StatusBar } from "expo-status-bar";
 
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Dimensions,
-  Animated,
-} from "react-native";
-import data from "../data";
-import { Button } from "../Button";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  Animated,
+  Dimensions,
+  StyleSheet,
+  View
+} from "react-native";
 import { useTheme } from "styled-components";
+import { Button } from "../Button";
+import data from "../data";
 
 const { width, height } = Dimensions.get("window");
 // export const LOGO_WIDTH = 220;
@@ -43,73 +36,73 @@ interface Props {
   scrollX: Animated.Value;
 }
 
-const Circle = ({ scrollX }: Props) => {
-  return (
-    <View style={[StyleSheet.absoluteFillObject, styles.circleContainer]}>
-      {data.map(({ color }, index) => {
-        const inputRange = [
-          (index - 0.55) * width,
-          index * width,
-          (index + 0.55) * width,
-        ];
-        const scale = scrollX.interpolate({
-          inputRange,
-          outputRange: [0, 1, 0],
-          extrapolate: "clamp",
-        });
-        const opacity = scrollX.interpolate({
-          inputRange,
-          outputRange: [0, 0.2, 0],
-        });
-        return (
-          <Animated.View
-            key={index}
-            style={[
-              styles.circle,
-              {
-                backgroundColor: color,
-                opacity,
-                transform: [{ scale }],
-              },
-            ]}
-          />
-        );
-      })}
-    </View>
-  );
-};
+// const Circle = ({ scrollX }: Props) => {
+//   return (
+//     <View style={[StyleSheet.absoluteFillObject, styles.circleContainer]}>
+//       {data.map(({ color }, index) => {
+//         const inputRange = [
+//           (index - 0.55) * width,
+//           index * width,
+//           (index + 0.55) * width,
+//         ];
+//         const scale = scrollX.interpolate({
+//           inputRange,
+//           outputRange: [0, 1, 0],
+//           extrapolate: "clamp",
+//         });
+//         const opacity = scrollX.interpolate({
+//           inputRange,
+//           outputRange: [0, 0.2, 0],
+//         });
+//         return (
+//           <Animated.View
+//             key={index}
+//             style={[
+//               styles.circle,
+//               {
+//                 backgroundColor: color,
+//                 opacity,
+//                 transform: [{ scale }],
+//               },
+//             ]}
+//           />
+//         );
+//       })}
+//     </View>
+//   );
+// };
 
-const Ticker = ({ scrollX }: Props) => {
-  const inputRange = [-width, 0, width];
-  const translateY = scrollX.interpolate({
-    inputRange,
-    outputRange: [TICKER_HEIGHT, 0, -TICKER_HEIGHT],
-  });
-  return (
-    <TickerContainer>
-      <Animated.View style={{ transform: [{ translateY }] }}>
-        {data.map(({ status }, index) => {
-          return (
-            <StatusInfoContainer key={index}>
-              <View
-                style={[
-                  {
-                    backgroundColor: "#00FF19",
-                    width: 10,
-                    height: 10,
-                    borderRadius: 10 / 2,
-                  },
-                  status === "Off" && { backgroundColor: "red" },
-                ]}
-              />
-              <TickerText key={index}>{status}</TickerText>
-            </StatusInfoContainer>
-          );
-        })}
-      </Animated.View>
-    </TickerContainer>
-  );
-};
+// const Ticker = ({ scrollX }: Props) => {
+//   const inputRange = [-width, 0, width];
+//   const translateY = scrollX.interpolate({
+//     inputRange,
+//     outputRange: [TICKER_HEIGHT, 0, -TICKER_HEIGHT],
+//   });
+//   return (
+//     <TickerContainer>
+//       <Animated.View style={{ transform: [{ translateY }] }}>
+//         {data.map(({ status }, index) => {
+//           return (
+//             <StatusInfoContainer key={index}>
+//               <View
+//                 style={[
+//                   {
+//                     backgroundColor: "#00FF19",
+//                     width: 10,
+//                     height: 10,
+//                     borderRadius: 10 / 2,
+//                   },
+//                   status === "Off" && { backgroundColor: "red" },
+//                 ]}
+//               />
+//               <TickerText key={index}>{status}</TickerText>
+//             </StatusInfoContainer>
+//           );
+//         })}
+//       </Animated.View>
+//     </TickerContainer>
+//   );
+// };
 
 interface PropsItem extends Props {
   id: number;
@@ -194,8 +187,6 @@ const Item = ({
             <View
               style={{
                 flexDirection: "row",
-                // justifyContent: "space-between",
-                // paddingHorizontal: 10,
                 marginRight: 10,
                 alignContent: "center",
                 gap: 20,
@@ -226,7 +217,7 @@ const Item = ({
                 />
                 <Description>ABC-123</Description>
               </Animated.View>
-              <Animated.View
+              {/* <Animated.View
                 style={[
                   {
                     flexDirection: "row",
@@ -250,7 +241,7 @@ const Item = ({
                   color={theme.colors.text_detail}
                 />
                 <Description>Agrale</Description>
-              </Animated.View>
+              </Animated.View> */}
             </View>
           </View>
         </View>
@@ -280,6 +271,7 @@ const Item = ({
 };
 
 const Pagination = ({ scrollX }: Props) => {
+  const theme = useTheme();
   const inputRange = [-width, 0, width];
   const translateX = scrollX.interpolate({
     inputRange,
@@ -300,7 +292,7 @@ const Pagination = ({ scrollX }: Props) => {
       {data.map(item => {
         return (
           <PaginationDotContainer key={item.id}>
-            <PaginationDot style={[{ backgroundColor: item.color }]} />
+            <PaginationDot style={[{ backgroundColor: theme.colors.primary }]} />
           </PaginationDotContainer>
         );
       })}
@@ -313,7 +305,7 @@ export default function CarSlider() {
 
   return (
     <Container>
-      <Circle scrollX={scrollX} />
+      {/* <Circle scrollX={scrollX} /> */}
       <Animated.FlatList
         keyExtractor={item => item.id.toString()}
         data={data}
@@ -329,9 +321,8 @@ export default function CarSlider() {
         )}
         scrollEventThrottle={16}
       />
-
       <Pagination scrollX={scrollX} />
-      <Ticker scrollX={scrollX} />
+      {/* <Ticker scrollX={scrollX} /> */}
     </Container>
   );
 }

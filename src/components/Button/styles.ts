@@ -1,7 +1,6 @@
-import { RFValue } from "react-native-responsive-fontsize";
-import { RectButton, RectButtonProps } from "react-native-gesture-handler";
-import styled from "styled-components/native";
 import { TouchableOpacityProps } from "react-native";
+import { RFValue } from "react-native-responsive-fontsize";
+import styled from "styled-components/native";
 
 interface ButtonProps extends TouchableOpacityProps {
   color: string;
@@ -14,7 +13,7 @@ export const Container = styled.TouchableOpacity<ButtonProps>`
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  padding: 12px;
+  padding: 10px;
   background: ${({ color }) => color};
 `;
 

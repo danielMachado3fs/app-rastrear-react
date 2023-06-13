@@ -1,11 +1,9 @@
 import React, { ReactNode } from "react";
 
-import { Container, Title, ButtonInside } from "./styles";
-import { RectButtonProps } from "react-native-gesture-handler";
-import { useTheme } from "styled-components";
-import { TouchableOpacityProps } from "react-native";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, TouchableOpacityProps } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
+import { useTheme } from "styled-components";
+import { ButtonInside, Container, Title } from "./styles";
 
 interface Props extends TouchableOpacityProps {
   title: string;

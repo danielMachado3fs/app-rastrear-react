@@ -1,11 +1,11 @@
-import React from "react";
-import { Text, useWindowDimensions } from "react-native";
-import { Container, Profile, Username } from "./styles";
 import { Ionicons } from "@expo/vector-icons";
+import React from "react";
+import { useWindowDimensions } from "react-native";
+import { Container, Profile, Username } from "./styles";
 
-import LogoSvg from "../../../assets/logoCompleto.svg";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useTheme } from "styled-components";
+import LogoSvg from "../../../assets/logoCompleto.svg";
 
 export function Header() {
   const { height } = useWindowDimensions();
@@ -13,7 +13,7 @@ export function Header() {
 
   return (
     <Container>
-      <Text>teste</Text>
+      <Ionicons name="menu-sharp" size={32} color={theme.colors.primary} />
       <LogoSvg height={RFValue(height * 0.1)} />
       <Profile>
         <Ionicons name="person-circle" size={28} color={theme.colors.primary} />

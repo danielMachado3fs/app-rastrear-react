@@ -12,7 +12,7 @@ export const CIRCLE_SIZE = width * 0.45;
 
 export const Container = styled.View`
   flex: 1;
-  height: ${height * 0.5}px;
+  height: ${height * 0.7}px;
   background-color: #fff;
   border-radius: 20px;
 `;
@@ -82,7 +82,7 @@ export const PaginationDotContainer = styled.View`
 
 export const TickerContainer = styled.View`
   position: absolute;
-  top: 25px;
+  top: 30px;
   left: 20px;
   overflow: hidden;
   height: ${TICKER_HEIGHT}px;
@@ -108,4 +108,5 @@ export const StatusInfoContainer = styled(Animated.View)`
   flex-direction: row;
   align-items: center;
   gap: 10px;
+  margint-bottom: ${TICKER_HEIGHT}px;
 `;

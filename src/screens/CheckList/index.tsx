@@ -6,8 +6,8 @@
  * Usa Formik para gerenciamento e validação de formulários com esquema yup.
  */
 
-import React from "react";
 import { Formik } from "formik";
+import React from "react";
 import * as yup from "yup";
 import { Button } from "../../components/Button";
 import { CheckboxWithOptions } from "../../components/CheckboxWithOptions";
@@ -51,9 +51,7 @@ export function CheckList() {
 
   return (
     <Container>
-      {/* Header */}
       <Header />
-
       <Formik
         initialValues={initialValues}
         validationSchema={checklistValidationSchema}

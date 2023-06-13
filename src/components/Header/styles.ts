@@ -1,15 +1,14 @@
-import styled from "styled-components/native";
 import { StatusBar } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
+import styled from "styled-components/native";
 
 export const Container = styled.View`
   width: 100%;
   flex-direction: row;
-  padding: ${StatusBar.currentHeight! - 10}px 0px 0px;
+  padding: ${StatusBar.currentHeight! - 10}px 10px 0px 10px;
   justify-content: space-between;
   align-items: center;
-  /* margin: 0px 0px 10px; */
-  /* background-color: #00ff; */
+  background-color: ${({ theme }) => theme.colors.background_secondary};
 `;
 
 export const Profile = styled.View`
