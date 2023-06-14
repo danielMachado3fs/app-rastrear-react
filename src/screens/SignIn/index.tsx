@@ -6,18 +6,20 @@
  * realizar a validação dos campos.
  */
 
-import React from "react";
-import * as yup from "yup";
-import { RFValue } from "react-native-responsive-fontsize";
-import { Container, Form, Label } from "./styles";
-import { InputForm } from "../../components/Form/InputForm";
-import { useWindowDimensions } from "react-native";
-import { Button } from "../../components/Button";
-import { Formik } from "formik";
-import { useTheme } from "styled-components";
 import { useNavigation } from "@react-navigation/native";
+import { Formik } from "formik";
+import React from "react";
+import { useWindowDimensions } from "react-native";
+import { RFValue } from "react-native-responsive-fontsize";
+import { useTheme } from "styled-components";
+import * as yup from "yup";
+import { Button } from "../../components/Button";
+import { InputForm } from "../../components/Form/InputForm";
+import { Container, Form, Label } from "./styles";
 
+import { Alert } from "react-native";
 import LogoSvg from "../../../assets/logoDetails.svg";
+import { api } from "../../lib/axios";
 
 // Define o esquema de validação para os campos de e-mail e senha usando yup
 const formValidationSchema = yup.object().shape({
@@ -25,13 +27,30 @@ const formValidationSchema = yup.object().shape({
   password: yup.string().min(5).max(12).required("Senha Obrigatória"),
 });
 
+export interface ICredenciais {
+  email: string;
+  password: string;
+}
+
 export function SignIn() {
   const theme = useTheme();
   const navigation = useNavigation();
-
   const { height } = useWindowDimensions();
 
-  // Define os valores iniciais dos campos de e-mail e senha
+  const autenticar = async (values: ICredenciais, actions: any) => {
+    try{
+      //Requisição para a API backend
+      const response = await api.post('/signin/authenticate', values);
+      actions.setSubmitting(false);
+      navigation.navigate("startCheckList");
+    }catch (error) {
+      console.log(error);
+      Alert.alert('Ops, usuário ou senha incorretos');
+      actions.setSubmitting(false);
+    }
+  }
+
+  // DEFINE OS VALORES INICIAIS DOS CAMPOS DO FORMULÁRIO
   const initialValues = {
     email: "",
     password: "",
@@ -42,14 +61,10 @@ export function SignIn() {
       <LogoSvg height={RFValue(height * 0.35)} />
       <Form>
         <Formik
-          onSubmit={(values, actions) => {
+          onSubmit={async (values, actions) => {
             setTimeout(() => {
-              console.log({ values });
-
-              console.log(JSON.stringify(values, null, 2));
-
-              actions.setSubmitting(false);
-              navigation.navigate("startCheckList");
+              autenticar(values, actions);
+              actions.setSubmitting(true);
             }, 1000);
           }}
           initialValues={initialValues}

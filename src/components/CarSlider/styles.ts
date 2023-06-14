@@ -12,7 +12,7 @@ export const CIRCLE_SIZE = width * 0.45;
 
 export const Container = styled.View`
   flex: 1;
-  height: ${height * 0.7}px;
+  height: ${height * 0.5}px;
   background-color: #fff;
   border-radius: 20px;
 `;

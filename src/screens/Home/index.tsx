@@ -23,8 +23,8 @@ export function Home() {
   return (
     <>
       <Header />
-      <CarSlider />
       <Container>
+        <CarSlider />
         <MyVehiclesTitle>Meus veiculos</MyVehiclesTitle>
         <WidgetContainer>
           <View style={{ width: "48%" }}>
