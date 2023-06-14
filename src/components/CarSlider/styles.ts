@@ -80,6 +80,12 @@ export const PaginationDotContainer = styled.View`
   justify-content: center;
 `;
 
+export const CurrentIndex = styled.Text`
+  color: ${({ theme }) => theme.colors.placeholderText};
+  font-size: ${RFValue(14)}px;
+  font-family: ${({ theme }) => theme.fonts.primary_600};
+`;
+
 // export const TickerContainer = styled.View`
 //   position: absolute;
 //   top: 30px;
