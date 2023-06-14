@@ -6,8 +6,13 @@ import { Container, Profile, Username } from "./styles";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useTheme } from "styled-components";
 import LogoSvg from "../../../assets/logoCompleto.svg";
+import { IUser } from "../../core/types/common";
 
-export function Header() {
+type Props = {
+  user: any;
+};
+
+export function Header({ user }: Props) {
   const { height } = useWindowDimensions();
   const theme = useTheme();
 
@@ -17,7 +22,7 @@ export function Header() {
       <LogoSvg height={RFValue(height * 0.1)} />
       <Profile>
         <Ionicons name="person-circle" size={28} color={theme.colors.primary} />
-        <Username>Fabricio</Username>
+        <Username>{user.name}</Username>
       </Profile>
     </Container>
   );

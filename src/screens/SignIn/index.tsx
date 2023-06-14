@@ -20,6 +20,7 @@ import { Container, Form, Label } from "./styles";
 import { Alert } from "react-native";
 import LogoSvg from "../../../assets/logoDetails.svg";
 import { api } from "../../lib/axios";
+import { IUser } from "../../core/types/common";
 
 // Define o esquema de validação para os campos de e-mail e senha usando yup
 const formValidationSchema = yup.object().shape({
@@ -34,15 +35,20 @@ export interface ICredenciais {
 
 export function SignIn() {
   const theme = useTheme();
-  const navigation = useNavigation();
+  const { navigate } = useNavigation();
   const { height } = useWindowDimensions();
+
+  const handleHome = (user: any) => {
+    navigate("home", { user });
+  };
 
   const autenticar = async (values: ICredenciais, actions: any) => {
     try {
       //Requisição para a API backend
       const response = await api.post("/signin/authenticate", values);
+      console.log(response.data);
       actions.setSubmitting(false);
-      navigation.navigate("home");
+      handleHome(response.data);
     } catch (error) {
       console.log(error);
       Alert.alert("Ops, usuário ou senha incorretos");

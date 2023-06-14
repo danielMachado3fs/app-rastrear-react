@@ -14,6 +14,7 @@ import { CheckboxWithOptions } from "../../components/CheckboxWithOptions";
 import { Header } from "../../components/Header";
 import theme from "../../core/styles/theme";
 import { Box, Container, Footer, Form } from "./styles";
+import { useRoute } from "@react-navigation/native";
 
 /* 
 Define o esquema de validação para os campos de de pneu, 
@@ -41,7 +42,14 @@ interface MyFormValues {
   externalLamps: "Ok" | "Ruim" | null;
 }
 
+interface Params {
+  user: any;
+}
+
 export function CheckList() {
+  const route = useRoute();
+  const { user } = route.params as Params;
+
   // Define os valores iniciais dos campos de pneu, lampadas externas e oleo
   const initialValues: MyFormValues = {
     tires: null,
@@ -51,7 +59,7 @@ export function CheckList() {
 
   return (
     <Container>
-      <Header />
+      <Header user={user} />
       <Formik
         initialValues={initialValues}
         validationSchema={checklistValidationSchema}

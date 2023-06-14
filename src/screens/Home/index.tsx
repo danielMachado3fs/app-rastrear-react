@@ -13,18 +13,29 @@ import {
 import { Button } from "../../components/Button";
 import CarSlider from "../../components/CarSlider";
 
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import ChecklistIcon from "../../../assets/checklist_icon.svg";
 import TicketIcon from "../../../assets/ticket_icon.svg";
 import { TicketWidget } from "../../components/TicketWidget";
+import { IUser } from "../../core/types/common";
+interface Params {
+  user: any;
+}
 
 export function Home() {
-  const { navigate } = useNavigation();
   const theme = useTheme();
+
+  const { navigate } = useNavigation();
+  const route = useRoute();
+  const { user } = route.params as Params;
+
+  const handleStartCheckList = (user: any) => {
+    navigate("startCheckList", { user });
+  };
 
   return (
     <>
-      <Header />
+      <Header user={user} />
       <Container>
         <MyVehiclesTitle>Meus veiculos</MyVehiclesTitle>
         <CarSlider />
@@ -35,7 +46,7 @@ export function Home() {
               title="Realizar Checklist"
               color={theme.colors.button_color}
               onPress={() => {
-                navigate("startCheckList");
+                handleStartCheckList(user);
               }}
               disabled={false}
               height={80}
