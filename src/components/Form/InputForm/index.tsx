@@ -29,7 +29,7 @@ export function InputForm({
       <Input
         {...rest}
         isPasswordInput={isPasswordInput}
-        secureTextEntry={hidePassword}
+        secureTextEntry={isPasswordInput && hidePassword}
         onTogglePasswordVisibility={handleTogglePassword}
         hasError={error ? true : false}
       />
