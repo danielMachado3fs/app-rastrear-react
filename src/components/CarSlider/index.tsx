@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Container,
@@ -8,8 +8,6 @@ import {
   ImageStyle,
   ItemStyle,
   PaginationContainer,
-  PaginationDot,
-  PaginationDotContainer,
   TextContainer
 } from "./styles";
 
@@ -18,38 +16,45 @@ import {
   Animated,
   Dimensions,
   StyleSheet,
+  Text,
   View
 } from "react-native";
 import { useTheme } from "styled-components";
+import { IVehicle } from "../../core/types/common";
+import { api } from "../../lib/axios";
 import { Button } from "../Button";
-import data from "../data";
 
 const { width, height } = Dimensions.get("window");
 
 interface Props {
   scrollX: Animated.Value;
+  veiculosIds?: number[];
 }
 
-interface PropsItem extends Props {
+interface IPropsItem extends Props {
   id: number;
   status: string;
-  imageUri: any;
-  color: string;
-  placa: string;
-  tipo: string;
+  image: string;
+  plate: string;
+  type: string;
   index: number;
+  model: string;
+  yearManufacture: string;
+  dateAcquisition: Date;
 }
 
 const Item = ({
   id,
   status,
-  imageUri,
-  color,
-  placa,
-  tipo,
+  image,
+  plate,
+  type,
   index,
+  model,
+  yearManufacture,
+  dateAcquisition,
   scrollX,
-}: PropsItem) => {
+}: IPropsItem) => {
   const theme = useTheme();
   const inputRange = [(index - 1) * width, index * width, (index + 1) * width];
   const inputRangeOpacity = [
@@ -76,9 +81,10 @@ const Item = ({
 
   return (
     <ItemStyle>
+      <Text>{index} / {15}</Text>
       <ImageStyle
         resizeMode={"contain"}
-        source={imageUri}
+        source={{uri: image}}
         style={[
           {
             transform: [{ scale }],
@@ -108,7 +114,7 @@ const Item = ({
                 },
               ]}
             >
-              10000 lx 2p
+              {model}
             </Heading>
             <View
               style={{
@@ -141,7 +147,7 @@ const Item = ({
                   size={22}
                   color={theme.colors.text_detail}
                 />
-                <DescriptionPlate>ABC-123</DescriptionPlate>
+                <DescriptionPlate>{plate}</DescriptionPlate>
               </Animated.View>
             </View>
           </View>
@@ -171,16 +177,20 @@ const Item = ({
   );
 };
 
-const Pagination = ({ scrollX }: Props) => {
+const Pagination = ({ scrollX, veiculosIds = [] }: Props) => {
   const theme = useTheme();
+  let increment = 1;
+  const [count, setCount] = useState(increment);
   const inputRange = [-width, 0, width];
   const translateX = scrollX.interpolate({
     inputRange,
     outputRange: [-DOT_SIZE, 0, DOT_SIZE],
   });
+  scrollX.setValue(2);
   return (
     <PaginationContainer>
-      <Animated.View
+      <Text>{} / {veiculosIds.length}</Text>
+      {/* <Animated.View
         style={[
           styles.paginationIndicator,
           {
@@ -189,19 +199,54 @@ const Pagination = ({ scrollX }: Props) => {
             transform: [{ translateX }],
           },
         ]}
-      />
-      {data.map(item => {
+      /> */}
+      {/* {veiculosIds.map(item => {
         return (
-          <PaginationDotContainer key={item.id}>
+          <PaginationDotContainer key={item}>
             <PaginationDot style={[{ backgroundColor: theme.colors.primary }]} />
           </PaginationDotContainer>
         );
-      })}
+      })} */}
     </PaginationContainer>
   );
 };
 
 export default function CarSlider() {
+  const [data, setData] = useState<IPropsItem[]>([]);
+  const [ids, setIds] = useState<number[]>([]);
+  async function fetchData(){
+    try {
+      const response = await api.get('/vehicle');
+      if(response.data.length > 0) return response.data;
+      return [];
+    } catch (erro){
+      console.log(erro);
+    }
+  }
+  useEffect(() => {
+
+    fetchData().then((data: IVehicle[]) => {
+      const veiculosIds: number[] = [];
+      const itens: IPropsItem[] = data.map((v, index) => {
+        veiculosIds.push(v.id);
+        console.log(v.image);
+        return {
+          id: v.id,
+          status: v.status,
+          image: v?.image ?? '',
+          plate: v.plate,
+          type: v.type,
+          model: v.model,
+          yearManufacture: v.yearManufacture,
+          dateAcquisition: v.dateAcquisition,
+          index,
+          scrollX,
+        };
+      });
+      setData(itens);
+      setIds(veiculosIds);
+    });
+  }, []);
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
   return (
@@ -221,7 +266,7 @@ export default function CarSlider() {
         )}
         scrollEventThrottle={16}
       />
-      <Pagination scrollX={scrollX} />
+      <Pagination scrollX={scrollX} veiculosIds={ids} />
     </Container>
   );
 }
@@ -235,3 +280,7 @@ const styles = StyleSheet.create({
     borderColor: "#ddd",
   }
 });
+function useEfect() {
+  throw new Error("Function not implemented.");
+}
+
