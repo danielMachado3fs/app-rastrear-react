@@ -128,7 +128,7 @@ export function StartCheckList() {
               {/* KM Input */}
               <Label>Quilometragem atual</Label>
               <MaskedForm
-                error={touched.licensePlate ? errors.km : ""}
+                error={touched.km ? errors.km : ""}
                 type={"custom"}
                 options={{
                   mask: "999999 KM",

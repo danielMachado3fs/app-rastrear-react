@@ -38,17 +38,17 @@ export function SignIn() {
   const { height } = useWindowDimensions();
 
   const autenticar = async (values: ICredenciais, actions: any) => {
-    try{
+    try {
       //Requisição para a API backend
-      const response = await api.post('/signin/authenticate', values);
+      const response = await api.post("/signin/authenticate", values);
       actions.setSubmitting(false);
       navigation.navigate("home");
-    }catch (error) {
+    } catch (error) {
       console.log(error);
-      Alert.alert('Ops, usuário ou senha incorretos');
+      Alert.alert("Ops, usuário ou senha incorretos");
       actions.setSubmitting(false);
     }
-  }
+  };
 
   // DEFINE OS VALORES INICIAIS DOS CAMPOS DO FORMULÁRIO
   const initialValues = {
@@ -88,7 +88,7 @@ export function SignIn() {
                 onBlur={() => setFieldTouched("email", true)}
                 onFocus={() => setFieldTouched("email", false)}
                 error={touched.email ? errors.email : ""}
-                placeholder="fulando@gmail.com"
+                placeholder="Entre com seu email"
                 onChangeText={handleChange("email")}
               />
 
@@ -97,8 +97,10 @@ export function SignIn() {
               <InputForm
                 onBlur={() => setFieldTouched("password", true)}
                 onFocus={() => setFieldTouched("password", false)}
+                placeholder="Entre com sua senha"
                 maxLength={12}
-                secureTextEntry
+                // secureTextEntry={false}
+                isPasswordInput
                 error={touched.password ? errors.password : ""}
                 onChangeText={handleChange("password")}
               />
