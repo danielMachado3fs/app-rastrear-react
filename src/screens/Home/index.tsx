@@ -13,10 +13,10 @@ import {
 import { Button } from "../../components/Button";
 import CarSlider from "../../components/CarSlider";
 
+import { useNavigation } from "@react-navigation/native";
 import ChecklistIcon from "../../../assets/checklist_icon.svg";
 import TicketIcon from "../../../assets/ticket_icon.svg";
 import { TicketWidget } from "../../components/TicketWidget";
-import { useNavigation } from "@react-navigation/native";
 
 export function Home() {
   const { navigate } = useNavigation();
@@ -38,6 +38,8 @@ export function Home() {
                 navigate("startCheckList");
               }}
               disabled={false}
+              height={80}
+              padding={8}
             />
           </View>
           <View style={{ width: "48%" }}>
@@ -47,6 +49,8 @@ export function Home() {
               color={theme.colors.button_color}
               onPress={() => {}}
               disabled={false}
+              height={80}
+              padding={8}
             />
           </View>
         </WidgetContainer>

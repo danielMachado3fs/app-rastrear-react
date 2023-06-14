@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import {
   Container,
+  CurrentIndex,
   DOT_SIZE,
   DescriptionPlate,
   Heading,
@@ -9,11 +10,10 @@ import {
   ItemStyle,
   PaginationContainer,
   TextContainer,
-  CurrentIndex,
 } from "./styles";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Animated, Dimensions, StyleSheet, Text, View } from "react-native";
+import { Animated, Dimensions, StyleSheet, View } from "react-native";
 import { useTheme } from "styled-components";
 import { IVehicle } from "../../core/types/common";
 import { api } from "../../lib/axios";
@@ -178,23 +178,15 @@ const Item = ({
 };
 
 const Pagination = ({ scrollX, veiculosIds = [] }: Props) => {
-  const theme = useTheme();
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const inputRange = [-width, 0, width];
-  const translateX = scrollX.interpolate({
-    inputRange,
-    outputRange: [-DOT_SIZE, 0, DOT_SIZE],
-  });
   useEffect(() => {
     const handleScroll = ({ value }: { value: number }) => {
       const index = Math.round(value / width);
 
       setCurrentIndex(index);
     };
-
-    const subscription = scrollX.addListener(handleScroll);
-
+    scrollX.addListener(handleScroll);
     return () => {
       scrollX.removeAllListeners();
     };
@@ -205,23 +197,6 @@ const Pagination = ({ scrollX, veiculosIds = [] }: Props) => {
       <CurrentIndex>
         {currentIndex + 1} /{veiculosIds.length}
       </CurrentIndex>
-      {/* <Animated.View
-        style={[
-          styles.paginationIndicator,
-          {
-            position: "absolute",
-            // backgroundColor: 'red',
-            transform: [{ translateX }],
-          },
-        ]}
-      /> */}
-      {/* {veiculosIds.map(item => {
-        return (
-          <PaginationDotContainer key={item}>
-            <PaginationDot style={[{ backgroundColor: theme.colors.primary }]} />
-          </PaginationDotContainer>
-        );
-      })} */}
     </PaginationContainer>
   );
 };
