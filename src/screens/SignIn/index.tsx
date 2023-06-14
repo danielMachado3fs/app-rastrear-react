@@ -42,7 +42,7 @@ export function SignIn() {
       //Requisição para a API backend
       const response = await api.post("/signin/authenticate", values);
       actions.setSubmitting(false);
-      navigation.navigate("startCheckList");
+      navigation.navigate("home");
     } catch (error) {
       console.log(error);
       Alert.alert("Ops, usuário ou senha incorretos");
@@ -65,7 +65,7 @@ export function SignIn() {
             setTimeout(() => {
               autenticar(values, actions);
               actions.setSubmitting(true);
-            }, 1000);
+            }, 500);
           }}
           initialValues={initialValues}
           validationSchema={formValidationSchema}
