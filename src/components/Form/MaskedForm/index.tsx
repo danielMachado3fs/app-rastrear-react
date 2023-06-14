@@ -11,9 +11,9 @@ interface Props extends TextInputMaskProps {
 export function MaskedForm({ error, ...rest }: Props) {
   return (
     <Container>
-      <MaskedInput {...rest} />
+      <MaskedInput {...rest} hasError={error ? true : false} />
 
-      {error != null && error.length > 1 && <Error>{error}</Error>}
+      {error != null && error != "" && <Error>{error}</Error>}
     </Container>
   );
 }
