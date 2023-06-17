@@ -14,10 +14,12 @@ export const Container = styled.View`
 export const Profile = styled.View`
   justify-content: center;
   align-items: center;
+  max-width: 80px
 `;
 
 export const Username = styled.Text`
   top: -4px;
   font-size: ${RFValue(11)}px;
   font-family: ${({ theme }) => theme.fonts.primary_700};
+  text-align: center
 `;

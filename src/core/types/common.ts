@@ -1,6 +1,6 @@
 
 export const typesStatus = ['ativo', 'inativo'] as const;
-export const typesVehicles = ['passeio', 'caminhao', 'carreta'] as const;
+export const typesVehicles = ['passeio', 'caminhonete', 'caminhao', 'carreta', 'van'] as const;
 export const situacaoChecklist = ['bom', 'ruim']
 
 export type TypesStatus = typeof typesStatus[number]
@@ -56,6 +56,7 @@ export interface IOpcao {
 
 export interface IChecklistOptions{
   title: string;
+  fileName: string;
 }
 
 export interface IChecklistVehicle {

@@ -1,10 +1,10 @@
 import React from "react";
 
-import { Container, Label, Options, Error } from "./styles";
+import { useField } from "formik";
 import { CustomCheckbox } from "../Form/CustomCheckbox";
-import { FormikFormProps, FormikProps, useField } from "formik";
+import { Container, Error, Label, Options } from "./styles";
 
-type Options = { ok: "Ok"; ruim: "Ruim" };
+type Options = { sim: "Sim"; nao: "Não" };
 interface Props {
   fieldName: string;
   label: string;
@@ -12,7 +12,7 @@ interface Props {
 
 export function CheckboxWithOptions({ fieldName, label, ...rest }: Props) {
   const [field, meta, helpers] = useField(fieldName);
-  const options: Options = { ok: "Ok", ruim: "Ruim" };
+  const options: Options = { sim: "Sim", nao: "Não" };
 
   return (
     <Container>
@@ -21,15 +21,15 @@ export function CheckboxWithOptions({ fieldName, label, ...rest }: Props) {
       </>
       <Options>
         <CustomCheckbox
-          title="Ok"
-          value={meta.value == options.ok}
-          onValueChange={e => helpers.setValue(options.ok)}
+          title="Sim"
+          value={meta.value == options.sim}
+          onValueChange={e => helpers.setValue(options.sim)}
         />
 
         <CustomCheckbox
-          title="Ruim"
-          value={meta.value == options.ruim}
-          onValueChange={e => helpers.setValue(options.ruim)}
+          title="Não"
+          value={meta.value == options.nao}
+          onValueChange={e => helpers.setValue(options.nao)}
         />
       </Options>
       {meta.touched && meta.error && (

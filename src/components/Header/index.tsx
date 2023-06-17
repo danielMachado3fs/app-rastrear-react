@@ -6,7 +6,6 @@ import { Container, Profile, Username } from "./styles";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useTheme } from "styled-components";
 import LogoSvg from "../../../assets/logoCompleto.svg";
-import { IUser } from "../../core/types/common";
 
 type Props = {
   user: any;

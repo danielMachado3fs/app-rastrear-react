@@ -53,6 +53,7 @@ const Item = ({
   const imageCar = `https://raw.githubusercontent.com/danielMachado3fs/app-rastrear-api/master/src/public/vehicles/${image.substring(
     image.lastIndexOf("/") + 1
   )}`;
+  // const imageCar = `https://3.bp.blogspot.com/-tMVA26Fi3f4/UKa9RhcSL3I/AAAAAAAAugI/29VoVryOFvw/s1600/carros-tunados-carros+(6).jpg`;
 
   const theme = useTheme();
   const inputRange = [(index - 1) * width, index * width, (index + 1) * width];
@@ -213,12 +214,12 @@ export default function CarSlider() {
       console.log(erro);
     }
   }
+  
   useEffect(() => {
     fetchData().then((data: IVehicle[]) => {
       const veiculosIds: number[] = [];
       const itens: IPropsItem[] = data.map((v, index) => {
         veiculosIds.push(v.id);
-        console.log(v.image);
         return {
           id: v.id,
           status: v.status,
