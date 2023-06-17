@@ -13,6 +13,7 @@ interface Props extends TouchableOpacityProps {
   isSubmitting?: boolean;
   height?: number;
   IconSVG?: ReactNode;
+  padding?: number;
 }
 
 export function Button({
@@ -22,6 +23,7 @@ export function Button({
   disabled,
   isSubmitting,
   height,
+  padding,
   IconSVG,
   ...rest
 }: Props) {
@@ -29,6 +31,7 @@ export function Button({
   return (
     <Container
       height={height}
+      padding={padding}
       activeOpacity={0.7}
       onPress={onPress}
       theme={theme}

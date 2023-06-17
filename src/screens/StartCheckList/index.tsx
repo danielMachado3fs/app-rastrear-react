@@ -14,7 +14,7 @@ import * as yup from "yup";
 import { Button } from "../../components/Button";
 import { MaskedForm } from "../../components/Form/MaskedForm";
 
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useTheme } from "styled-components";
 import { Header } from "../../components/Header";
 import {
@@ -44,10 +44,16 @@ interface MyFormValues {
   date: Date;
 }
 
+interface Params {
+  user: any;
+}
+
 export function StartCheckList() {
   // const { height } = useWindowDimensions();
   const theme = useTheme();
-  const navigation = useNavigation();
+  const { navigate } = useNavigation();
+  const route = useRoute();
+  const { user } = route.params as Params;
 
   // Define os valores iniciais do formulário
   const initialValues: MyFormValues = {
@@ -56,10 +62,14 @@ export function StartCheckList() {
     date: new Date(),
   };
 
+  const handleCheckList = (user: any) => {
+    navigate("checkList", { user });
+  };
+
   return (
     <Container>
       {/* Header */}
-      <Header />
+      <Header user={user} />
 
       {/* Form */}
       <Form>
@@ -74,7 +84,7 @@ export function StartCheckList() {
               console.log(JSON.stringify(values, null, 2));
 
               actions.setSubmitting(false);
-              navigation.navigate("checkList");
+              handleCheckList(user);
             }, 1000);
           }}
           initialValues={initialValues}
@@ -128,7 +138,7 @@ export function StartCheckList() {
               {/* KM Input */}
               <Label>Quilometragem atual</Label>
               <MaskedForm
-                error={touched.licensePlate ? errors.km : ""}
+                error={touched.km ? errors.km : ""}
                 type={"custom"}
                 options={{
                   mask: "999999 KM",

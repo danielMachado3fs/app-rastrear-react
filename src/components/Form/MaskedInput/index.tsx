@@ -4,11 +4,19 @@ import { Container } from "./styles";
 import { useTheme } from "styled-components";
 import { TextInputMaskProps } from "react-native-masked-text";
 
-type Props = TextInputMaskProps;
+interface Props extends TextInputMaskProps {
+  hasError: boolean;
+}
 
-export function MaskedInput({ ...rest }: Props) {
+export function MaskedInput({ hasError, ...rest }: Props) {
   const theme = useTheme();
   return (
-    <Container {...rest} placeholderTextColor={theme.colors.placeholderText} />
+    <Container
+      {...rest}
+      placeholderTextColor={theme.colors.placeholderText}
+      style={[
+        { borderWidth: 1, borderColor: hasError ? "red" : "transparent" },
+      ]}
+    />
   );
 }

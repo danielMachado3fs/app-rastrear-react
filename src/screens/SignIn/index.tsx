@@ -20,6 +20,7 @@ import { Container, Form, Label } from "./styles";
 import { Alert } from "react-native";
 import LogoSvg from "../../../assets/logoDetails.svg";
 import { api } from "../../lib/axios";
+import { IUser } from "../../core/types/common";
 
 // Define o esquema de validação para os campos de e-mail e senha usando yup
 const formValidationSchema = yup.object().shape({
@@ -34,21 +35,26 @@ export interface ICredenciais {
 
 export function SignIn() {
   const theme = useTheme();
-  const navigation = useNavigation();
+  const { navigate } = useNavigation();
   const { height } = useWindowDimensions();
 
+  const handleHome = (user: any) => {
+    navigate("home", { user });
+  };
+
   const autenticar = async (values: ICredenciais, actions: any) => {
-    try{
+    try {
       //Requisição para a API backend
-      const response = await api.post('/signin/authenticate', values);
+      const response = await api.post("/signin/authenticate", values);
+      console.log(response.data);
       actions.setSubmitting(false);
-      navigation.navigate("home");
-    }catch (error) {
+      handleHome(response.data);
+    } catch (error) {
       console.log(error);
-      Alert.alert('Ops, usuário ou senha incorretos');
+      Alert.alert("Ops, usuário ou senha incorretos");
       actions.setSubmitting(false);
     }
-  }
+  };
 
   // DEFINE OS VALORES INICIAIS DOS CAMPOS DO FORMULÁRIO
   const initialValues = {
@@ -88,7 +94,7 @@ export function SignIn() {
                 onBlur={() => setFieldTouched("email", true)}
                 onFocus={() => setFieldTouched("email", false)}
                 error={touched.email ? errors.email : ""}
-                placeholder="fulando@gmail.com"
+                placeholder="Entre com seu email"
                 onChangeText={handleChange("email")}
               />
 
@@ -97,8 +103,10 @@ export function SignIn() {
               <InputForm
                 onBlur={() => setFieldTouched("password", true)}
                 onFocus={() => setFieldTouched("password", false)}
+                placeholder="Entre com sua senha"
                 maxLength={12}
-                secureTextEntry
+                // secureTextEntry={false}
+                isPasswordInput
                 error={touched.password ? errors.password : ""}
                 onChangeText={handleChange("password")}
               />

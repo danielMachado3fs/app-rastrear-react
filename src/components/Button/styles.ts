@@ -5,15 +5,16 @@ import styled from "styled-components/native";
 interface ButtonProps extends TouchableOpacityProps {
   color: string;
   height?: number;
+  padding?: number;
 }
 
 export const Container = styled.TouchableOpacity<ButtonProps>`
   width: 100%;
-  /* height: ${({ height }) => height ?? 0}; */
+  height: ${({ height }) => height ?? 50}px;
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  padding: 10px;
+  padding: ${({ padding }) => padding ?? 0}px;
   background: ${({ color }) => color};
 `;
 
@@ -21,8 +22,9 @@ export const ButtonInside = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  gap: ${RFValue(12)}px;
+  gap: ${RFValue(10)}px;
   padding: ${RFValue(10)}px;
+  height: 100%;
 `;
 
 export const Title = styled.Text`

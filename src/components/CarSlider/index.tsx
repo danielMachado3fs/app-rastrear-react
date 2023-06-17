@@ -2,23 +2,18 @@ import React, { useEffect, useState } from "react";
 
 import {
   Container,
+  CurrentIndex,
   DOT_SIZE,
   DescriptionPlate,
   Heading,
   ImageStyle,
   ItemStyle,
   PaginationContainer,
-  TextContainer
+  TextContainer,
 } from "./styles";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import {
-  Animated,
-  Dimensions,
-  StyleSheet,
-  Text,
-  View
-} from "react-native";
+import { Animated, Dimensions, StyleSheet, View } from "react-native";
 import { useTheme } from "styled-components";
 import { IVehicle } from "../../core/types/common";
 import { api } from "../../lib/axios";
@@ -55,6 +50,10 @@ const Item = ({
   dateAcquisition,
   scrollX,
 }: IPropsItem) => {
+  const imageCar = `https://raw.githubusercontent.com/danielMachado3fs/app-rastrear-api/master/src/public/vehicles/${image.substring(
+    image.lastIndexOf("/") + 1
+  )}`;
+
   const theme = useTheme();
   const inputRange = [(index - 1) * width, index * width, (index + 1) * width];
   const inputRangeOpacity = [
@@ -81,10 +80,11 @@ const Item = ({
 
   return (
     <ItemStyle>
-      <Text>{index} / {15}</Text>
       <ImageStyle
         resizeMode={"contain"}
-        source={{uri: image}}
+        source={{
+          uri: imageCar,
+        }}
         style={[
           {
             transform: [{ scale }],
@@ -178,35 +178,25 @@ const Item = ({
 };
 
 const Pagination = ({ scrollX, veiculosIds = [] }: Props) => {
-  const theme = useTheme();
-  let increment = 1;
-  const [count, setCount] = useState(increment);
-  const inputRange = [-width, 0, width];
-  const translateX = scrollX.interpolate({
-    inputRange,
-    outputRange: [-DOT_SIZE, 0, DOT_SIZE],
-  });
-  scrollX.setValue(2);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = ({ value }: { value: number }) => {
+      const index = Math.round(value / width);
+
+      setCurrentIndex(index);
+    };
+    scrollX.addListener(handleScroll);
+    return () => {
+      scrollX.removeAllListeners();
+    };
+  }, [scrollX]);
+
   return (
     <PaginationContainer>
-      <Text>{} / {veiculosIds.length}</Text>
-      {/* <Animated.View
-        style={[
-          styles.paginationIndicator,
-          {
-            position: "absolute",
-            // backgroundColor: 'red',
-            transform: [{ translateX }],
-          },
-        ]}
-      /> */}
-      {/* {veiculosIds.map(item => {
-        return (
-          <PaginationDotContainer key={item}>
-            <PaginationDot style={[{ backgroundColor: theme.colors.primary }]} />
-          </PaginationDotContainer>
-        );
-      })} */}
+      <CurrentIndex>
+        {currentIndex + 1} /{veiculosIds.length}
+      </CurrentIndex>
     </PaginationContainer>
   );
 };
@@ -214,17 +204,16 @@ const Pagination = ({ scrollX, veiculosIds = [] }: Props) => {
 export default function CarSlider() {
   const [data, setData] = useState<IPropsItem[]>([]);
   const [ids, setIds] = useState<number[]>([]);
-  async function fetchData(){
+  async function fetchData() {
     try {
-      const response = await api.get('/vehicle');
-      if(response.data.length > 0) return response.data;
+      const response = await api.get("/vehicle");
+      if (response.data.length > 0) return response.data;
       return [];
-    } catch (erro){
+    } catch (erro) {
       console.log(erro);
     }
   }
   useEffect(() => {
-
     fetchData().then((data: IVehicle[]) => {
       const veiculosIds: number[] = [];
       const itens: IPropsItem[] = data.map((v, index) => {
@@ -233,7 +222,7 @@ export default function CarSlider() {
         return {
           id: v.id,
           status: v.status,
-          image: v?.image ?? '',
+          image: v?.image ?? "",
           plate: v.plate,
           type: v.type,
           model: v.model,
@@ -278,9 +267,5 @@ const styles = StyleSheet.create({
     borderRadius: DOT_SIZE / 2,
     borderWidth: 2,
     borderColor: "#ddd",
-  }
+  },
 });
-function useEfect() {
-  throw new Error("Function not implemented.");
-}
-

@@ -25,17 +25,17 @@ interface TicketDTO {
 const tickets: TicketDTO[] = [
   {
     id: 1,
-    name: "Nome Ticket1",
-    date: "Sex, 25 Março 2023",
-    vehicle: "caminaho",
-    status: "pronto",
+    name: "Ticket Volvo Fh",
+    date: "Dom, 11 Julho 2023",
+    vehicle: "Volvo Fh",
+    status: "aguardando",
   },
   {
     id: 2,
-    name: "Nome Ticket2",
-    date: "Dom, 11 Julho 2023",
-    vehicle: "volks",
-    status: "aguardando",
+    name: "Ticket Gol",
+    date: "Sex, 25 Março 2023",
+    vehicle: "Gol",
+    status: "pronto",
   },
 ];
 
