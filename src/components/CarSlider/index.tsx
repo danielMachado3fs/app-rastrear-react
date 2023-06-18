@@ -13,11 +13,18 @@ import {
 } from "./styles";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Animated, Dimensions, StyleSheet, View } from "react-native";
+import {
+  ActivityIndicator,
+  Animated,
+  Dimensions,
+  StyleSheet,
+  View,
+} from "react-native";
 import { useTheme } from "styled-components";
 import { IVehicle } from "../../core/types/common";
 import { api } from "../../lib/axios";
 import { Button } from "../Button";
+import { Loading } from "../Loading";
 
 const { width, height } = Dimensions.get("window");
 
@@ -203,8 +210,10 @@ const Pagination = ({ scrollX, veiculosIds = [] }: Props) => {
 };
 
 export default function CarSlider() {
+  const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<IPropsItem[]>([]);
   const [ids, setIds] = useState<number[]>([]);
+
   async function fetchData() {
     try {
       const response = await api.get("/vehicle");
@@ -214,7 +223,7 @@ export default function CarSlider() {
       console.log(erro);
     }
   }
-  
+
   useEffect(() => {
     fetchData().then((data: IVehicle[]) => {
       const veiculosIds: number[] = [];
@@ -236,26 +245,34 @@ export default function CarSlider() {
       setData(itens);
       setIds(veiculosIds);
     });
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
   }, []);
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
   return (
     <Container>
-      <Animated.FlatList
-        keyExtractor={item => item.id.toString()}
-        data={data}
-        renderItem={({ item, index }) => (
-          <Item {...item} index={index} scrollX={scrollX} />
-        )}
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        horizontal
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-          { useNativeDriver: true }
-        )}
-        scrollEventThrottle={16}
-      />
+      {isLoading ? (
+        <Loading height={50} size={50} />
+      ) : (
+        <Animated.FlatList
+          keyExtractor={item => item.id.toString()}
+          data={data}
+          renderItem={({ item, index }) => (
+            <Item {...item} index={index} scrollX={scrollX} />
+          )}
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          horizontal
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+            { useNativeDriver: true }
+          )}
+          scrollEventThrottle={16}
+        />
+      )}
       <Pagination scrollX={scrollX} veiculosIds={ids} />
     </Container>
   );

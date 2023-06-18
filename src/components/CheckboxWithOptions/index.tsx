@@ -13,7 +13,7 @@ interface Props {
 export function CheckboxWithOptions({ fieldName, label, ...rest }: Props) {
   const [field, meta, helpers] = useField(fieldName);
   const options: Options = { sim: "Sim", nao: "Não" };
-
+  console.log("err =" + meta.error);
   return (
     <Container>
       <>
@@ -21,12 +21,14 @@ export function CheckboxWithOptions({ fieldName, label, ...rest }: Props) {
       </>
       <Options>
         <CustomCheckbox
+          hasError={meta.touched && meta.error ? true : false}
           title="Sim"
           value={meta.value == options.sim}
           onValueChange={e => helpers.setValue(options.sim)}
         />
 
         <CustomCheckbox
+          hasError={meta.touched && meta.error ? true : false}
           title="Não"
           value={meta.value == options.nao}
           onValueChange={e => helpers.setValue(options.nao)}

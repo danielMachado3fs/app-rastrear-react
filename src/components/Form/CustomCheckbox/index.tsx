@@ -6,14 +6,15 @@ import theme from "../../../core/styles/theme";
 
 interface Props extends CheckboxProps {
   title: string;
+  hasError: boolean;
 }
 
-export function CustomCheckbox({ title, ...rest }: Props) {
+export function CustomCheckbox({ title, hasError, ...rest }: Props) {
   return (
     <Container>
       <WrapCheckBox>
-        <CheckBox {...rest} color={theme.colors.primary} />
-        <Title>{title}</Title>
+        <CheckBox {...rest} color={hasError ? "red" : theme.colors.primary} />
+        <Title hasError={hasError}>{title}</Title>
       </WrapCheckBox>
     </Container>
   );
