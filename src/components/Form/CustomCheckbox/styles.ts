@@ -1,6 +1,11 @@
 import styled from "styled-components/native";
 import Checkbox from "expo-checkbox";
 import { RFValue } from "react-native-responsive-fontsize";
+import { TextProps } from "react-native-svg";
+
+interface PropsTitle extends TextProps {
+  hasError: boolean;
+}
 
 export const Container = styled.View``;
 
@@ -13,7 +18,8 @@ export const WrapCheckBox = styled.View`
 
 export const CheckBox = styled(Checkbox)``;
 
-export const Title = styled.Text`
+export const Title = styled.Text<PropsTitle>`
+  color: ${({ hasError }) => (hasError ? "red" : "black")};
   font-size: ${RFValue(15)}px;
   font-family: ${({ theme }) => theme.fonts.primary_500};
 `;

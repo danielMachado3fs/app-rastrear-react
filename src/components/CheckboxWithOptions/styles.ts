@@ -17,9 +17,10 @@ export const Options = styled.View`
   justify-content: space-between;
   align-items: center;
 `;
+
 export const Error = styled.Text`
   padding-top: 5px;
-  font-size: ${RFValue(12)}px;
+  font-size: ${RFValue(13)}px;
   font-family: ${({ theme }) => theme.fonts.primary_400};
   color: red;
 `;
