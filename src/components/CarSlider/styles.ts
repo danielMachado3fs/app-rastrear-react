@@ -1,6 +1,7 @@
 import { Animated, Dimensions } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
+import { RFValue, RFPercentage } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
+import theme from "../../core/styles/theme";
 
 const { width, height } = Dimensions.get("window");
 
@@ -9,6 +10,8 @@ export const LOGO_HEIGHT = 40;
 export const DOT_SIZE = 30;
 export const TICKER_HEIGHT = 16;
 export const CIRCLE_SIZE = width * 0.45;
+
+const colorPrimary = theme.colors.primary;
 
 export const Container = styled.View`
   flex: 1;
