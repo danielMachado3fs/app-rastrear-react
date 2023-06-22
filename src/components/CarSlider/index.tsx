@@ -3,20 +3,18 @@ import React, { useEffect, useState } from "react";
 import {
   Container,
   CurrentIndex,
-  DOT_SIZE,
   DescriptionPlate,
   Heading,
   ImageStyle,
   ItemStyle,
   PaginationContainer,
-  TextContainer,
+  TextContainer
 } from "./styles";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   Animated,
   Dimensions,
-  StyleSheet,
   View
 } from "react-native";
 import { useTheme } from "styled-components";
@@ -212,11 +210,12 @@ export default function CarSlider({ onData }: any) {
   const [data, setData] = useState<IPropsItem[]>([]);
   const [ids, setIds] = useState<number[]>([]);
 
+  //TRANSFERE A PROPRIEDADE PARA O COMPONENTE PAI QUE É O HOME
   const sendDataToParent = (data: IPropsItem) => {
     onData(data); // Chama a função de callback do componente pai
-    console.log(data);
   };
 
+  //FAZ A REQUISIÇÃO NA API PARA PEGAR A LISTA DE VEÍCULOS
   async function fetchData() {
     try {
       const response = await api.get("/vehicle");
@@ -295,13 +294,3 @@ export default function CarSlider({ onData }: any) {
     </Container>
   );
 }
-
-const styles = StyleSheet.create({
-  paginationIndicator: {
-    width: DOT_SIZE,
-    height: DOT_SIZE,
-    borderRadius: DOT_SIZE / 2,
-    borderWidth: 2,
-    borderColor: "#ddd",
-  },
-});

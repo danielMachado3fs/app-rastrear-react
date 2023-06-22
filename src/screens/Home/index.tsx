@@ -17,6 +17,8 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import ChecklistIcon from "../../../assets/checklist_icon.svg";
 import TicketIcon from "../../../assets/ticket_icon.svg";
 import { TicketWidget } from "../../components/TicketWidget";
+
+//TIPANDO O A PROPS QUE VAMOS RECEBER NA ROTA
 interface Params {
   user: any;
 }
@@ -28,7 +30,8 @@ export function Home() {
   const route = useRoute();
   const { user } = route.params as Params;
 
-  const handleStartCheckList = (user: any) => {
+  //FUNÇÃO PARA CHAMAR A ROTA DA TELA DE INICIAR CHECKLIST
+  const handleStartCheckList = () => {
     navigate("startCheckList", { user, vehicle });
   };
 
@@ -45,7 +48,7 @@ export function Home() {
               title="Realizar Checklist"
               color={theme.colors.button_color}
               onPress={() => {
-                handleStartCheckList(user);
+                handleStartCheckList();
               }}
               disabled={false}
               height={80}

@@ -118,14 +118,10 @@ export function StartCheckList() {
                 options={{
                   mask: "SSSSSSS",
                 }}
-                onBlur={() => setFieldTouched("licensePlate", true)}
-                onFocus={() => setFieldTouched("licensePlate", false)}
                 maxLength={7}
                 autoCapitalize="characters"
                 placeholder="ABC1234"
-                onChangeText={handleChange("licensePlate")}
                 value={values.licensePlate.toUpperCase()}
-                autoCorrect={false}
                 editable={false}
               />
               <BoxSized />
