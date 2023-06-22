@@ -13,7 +13,6 @@ interface Props {
 export function CheckboxWithOptions({ fieldName, label, ...rest }: Props) {
   const [field, meta, helpers] = useField(fieldName);
   const options: Options = { sim: "Sim", nao: "Não" };
-  console.log("err =" + meta.error);
   return (
     <Container>
       <>

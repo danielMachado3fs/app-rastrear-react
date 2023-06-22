@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import { useTheme } from "styled-components";
 import { Header } from "../../components/Header";
@@ -17,20 +17,19 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import ChecklistIcon from "../../../assets/checklist_icon.svg";
 import TicketIcon from "../../../assets/ticket_icon.svg";
 import { TicketWidget } from "../../components/TicketWidget";
-import { IUser } from "../../core/types/common";
 interface Params {
   user: any;
 }
 
 export function Home() {
   const theme = useTheme();
-
+  const [vehicle, setVehicle] = useState({});
   const { navigate } = useNavigation();
   const route = useRoute();
   const { user } = route.params as Params;
 
   const handleStartCheckList = (user: any) => {
-    navigate("startCheckList", { user });
+    navigate("startCheckList", { user, vehicle });
   };
 
   return (
@@ -38,7 +37,7 @@ export function Home() {
       <Header user={user} />
       <Container>
         <MyVehiclesTitle>Meus veiculos</MyVehiclesTitle>
-        <CarSlider />
+        <CarSlider onData={setVehicle}/>
         <WidgetContainer>
           <View style={{ width: "48%" }}>
             <Button

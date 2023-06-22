@@ -16,6 +16,7 @@ import { MaskedForm } from "../../components/Form/MaskedForm";
 
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useTheme } from "styled-components";
+import { IPropsItem } from "../../components/CarSlider";
 import { Header } from "../../components/Header";
 import {
   BoxSized,
@@ -46,24 +47,24 @@ interface MyFormValues {
 
 interface Params {
   user: any;
+  vehicle: IPropsItem;
 }
 
 export function StartCheckList() {
-  // const { height } = useWindowDimensions();
   const theme = useTheme();
   const { navigate } = useNavigation();
   const route = useRoute();
-  const { user } = route.params as Params;
+  const { user, vehicle } = route.params as Params;
 
   // Define os valores iniciais do formulário
   const initialValues: MyFormValues = {
-    licensePlate: "",
+    licensePlate: vehicle.plate,
     km: "",
     date: new Date(),
   };
 
-  const handleCheckList = (user: any) => {
-    navigate("checkList", { user });
+  const handleCheckList = (user: any, values: any) => {
+    navigate("checkList", { user, vehicle, km: values.km });
   };
 
   return (
@@ -79,12 +80,8 @@ export function StartCheckList() {
         <Formik
           onSubmit={(values, actions) => {
             setTimeout(() => {
-              console.log({ values });
-
-              console.log(JSON.stringify(values, null, 2));
-
               actions.setSubmitting(false);
-              handleCheckList(user);
+              handleCheckList(user, values);
             }, 1000);
           }}
           initialValues={initialValues}
@@ -127,11 +124,9 @@ export function StartCheckList() {
                 autoCapitalize="characters"
                 placeholder="ABC1234"
                 onChangeText={handleChange("licensePlate")}
-                // keyboardType={
-                //   values.licensePlate.length >= 3 ? "numeric" : "default"
-                // }
                 value={values.licensePlate.toUpperCase()}
                 autoCorrect={false}
+                editable={false}
               />
               <BoxSized />
 

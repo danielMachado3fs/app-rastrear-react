@@ -14,14 +14,13 @@ import {
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {
-  ActivityIndicator,
   Animated,
   Dimensions,
   StyleSheet,
-  View,
+  View
 } from "react-native";
 import { useTheme } from "styled-components";
-import { IVehicle } from "../../core/types/common";
+import { IVehicle, TypesVehicles } from "../../core/types/common";
 import { api } from "../../lib/axios";
 import { Button } from "../Button";
 import { Loading } from "../Loading";
@@ -33,12 +32,12 @@ interface Props {
   veiculosIds?: number[];
 }
 
-interface IPropsItem extends Props {
+export interface IPropsItem extends Props {
   id: number;
   status: string;
   image: string;
   plate: string;
-  type: string;
+  type: TypesVehicles;
   index: number;
   model: string;
   yearManufacture: string;
@@ -111,7 +110,6 @@ const Item = ({
               flexDirection: "column",
               justifyContent: "center",
               alignContent: "center",
-              // backgroundColor: "red",
             }}
           >
             <Heading
@@ -209,10 +207,15 @@ const Pagination = ({ scrollX, veiculosIds = [] }: Props) => {
   );
 };
 
-export default function CarSlider() {
+export default function CarSlider({ onData }: any) {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<IPropsItem[]>([]);
   const [ids, setIds] = useState<number[]>([]);
+
+  const sendDataToParent = (data: IPropsItem) => {
+    onData(data); // Chama a função de callback do componente pai
+    console.log(data);
+  };
 
   async function fetchData() {
     try {
@@ -244,13 +247,28 @@ export default function CarSlider() {
       });
       setData(itens);
       setIds(veiculosIds);
+      sendDataToParent(itens[0]);
     });
 
     setTimeout(() => {
       setIsLoading(false);
     }, 500);
   }, []);
+
+  
   const scrollX = React.useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    const handleScroll = ({ value }: { value: number }) => {
+      const index = Math.round(value / width);
+      console.log('INDEX:', index);
+      if(index) sendDataToParent(data[index]);
+    };
+    scrollX.addListener(handleScroll);
+    return () => {
+      scrollX.removeAllListeners();
+    };
+  }, [scrollX]);
 
   return (
     <Container>
