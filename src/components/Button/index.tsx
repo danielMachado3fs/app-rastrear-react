@@ -22,7 +22,7 @@ export function Button({
   onPress,
   disabled,
   isSubmitting,
-  height,
+  height = 60,
   padding,
   IconSVG,
   ...rest

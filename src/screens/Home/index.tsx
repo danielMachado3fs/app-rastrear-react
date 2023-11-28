@@ -32,6 +32,9 @@ export function Home() {
 
   //FUNÇÃO PARA CHAMAR A ROTA DA TELA DE INICIAR CHECKLIST
   const handleStartCheckList = () => {
+    console.log('🚀 -----------------------------------------------------------------------🚀');
+    console.log('🚀 ~ file: index.tsx:36 ~ handleStartCheckList ~ vehicle 🚀 ➡➡', vehicle);
+    console.log('🚀 -----------------------------------------------------------------------🚀');
     navigate("startCheckList", { user, vehicle });
   };
 
@@ -51,7 +54,7 @@ export function Home() {
                 handleStartCheckList();
               }}
               disabled={false}
-              height={80}
+              height={100}
               padding={8}
             />
           </View>
@@ -62,7 +65,7 @@ export function Home() {
               color={theme.colors.button_color}
               onPress={() => {}}
               disabled={false}
-              height={80}
+              height={100}
               padding={8}
             />
           </View>

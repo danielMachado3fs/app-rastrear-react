@@ -212,6 +212,7 @@ export default function CarSlider({ onData }: any) {
 
   //TRANSFERE A PROPRIEDADE PARA O COMPONENTE PAI QUE É O HOME
   const sendDataToParent = (data: IPropsItem) => {
+    console.log("🚀 ~ file: index.tsx:215 ~ sendDataToParent ~ data:", data)
     onData(data); // Chama a função de callback do componente pai
   };
 
@@ -260,7 +261,7 @@ export default function CarSlider({ onData }: any) {
   useEffect(() => {
     const handleScroll = ({ value }: { value: number }) => {
       const index = Math.round(value / width);
-      console.log('INDEX:', index);
+      console.log("🚀 ~ DATA[index]:", data[index])
       if(index) sendDataToParent(data[index]);
     };
     scrollX.addListener(handleScroll);
